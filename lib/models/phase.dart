@@ -1,7 +1,7 @@
 class Phase {
-  static const tabela = 'phase';
-  static const filedId = 'id';
-  static const filedName = 'name';
+  static const tableName = 'phase';
+  static const fieldId = 'id';
+  static const fieldName = 'name';
   int? id;
   String name;
 
@@ -9,11 +9,11 @@ class Phase {
 
   factory Phase.fromMap(Map map) {
     return Phase(
-        id: int.tryParse(map[Phase.filedId].toString()),
-        name: map[Phase.filedName]);
+        id: int.tryParse(map[Phase.fieldId].toString()),
+        name: map[Phase.fieldName]);
   }
 
   Map<String, dynamic> toMap() {
-    return {Phase.filedId: id, Phase.filedName: name};
+    return {Phase.fieldId: id, Phase.fieldName: name};
   }
 }

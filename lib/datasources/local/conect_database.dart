@@ -28,12 +28,11 @@ class ConectDatabase {
     await _db!.execute(SubjectHelper.sqlCreateSubject);
     await _db!.execute(StudentHelper.sqlCreateStudent);
     await _db!.execute(ProfessorHelper.sqlCreateProfessor);
-    await _db!.execute(ScorreHelper.sqlCreateScorre);
     await _db!.execute(FrequencyHelper.sqlCreateFrequency);
-    await _db!.execute(
-        ClassAcademySubjectProfessorHelper.sqlDropClassAcademySubjectProfessor);
+    await _db!.execute(ScorreHelper.sqlCreateScorre);
     await _db!.execute(ClassAcademySubjectProfessorHelper
         .sqlCreateClassAcademySubjectProfessor);
+
     await _db!.execute(
         ClassAcademySubjectStudentHelper.sqlCreateClassAcademySubjectStudent);
     return _db!;

@@ -43,7 +43,7 @@ class _CadClassAcademySubjectStudentPageState
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Ligar Turma Disciplina Student'),
+        title: const Text('Ligar Turma Disciplina Aluno'),
       ),
       floatingActionButton: Stack(
         fit: StackFit.expand,
@@ -122,8 +122,7 @@ class _CadClassAcademySubjectStudentPageState
               controller: _idSubjectController,
               textDesciption: 'Código Disciplina'),
           CustomTextField(
-              controller: _idStudentController,
-              textDesciption: 'Código Student'),
+              controller: _idStudentController, textDesciption: 'Código Aluno'),
           SizedBox(height: 100),
         ],
       ),
@@ -178,7 +177,7 @@ class _CadClassAcademySubjectStudentPageState
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => ListClassAcademySubjectStudent(
+            builder: (context) => ListClassAcademySubjectStudentPage(
                   searchId: int.tryParse(_idController.text),
                   searchIdClassAcademy: int.tryParse(_idController.text),
                   searchIdSubject: int.tryParse(_idSubjectController.text),

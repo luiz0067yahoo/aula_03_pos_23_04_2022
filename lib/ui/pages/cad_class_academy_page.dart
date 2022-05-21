@@ -163,7 +163,7 @@ class _CadClassAcademyPageState extends State<CadClassAcademyPage> {
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => ListClassAcademy(
+            builder: (context) => ListClassAcademyPage(
                   searchId: int.tryParse(_idController.text),
                   searchName: _nameController.text,
                 )));

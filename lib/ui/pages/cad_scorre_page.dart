@@ -30,11 +30,18 @@ class _CadScorrePageState extends State<CadScorrePage> {
     super.initState();
     if (widget.scorre != null) {
       _idStudentController.text = widget.scorre!.idStudent!.toString();
-      _idClassAcademyController.text =
-          widget.scorre!.idClassAcademy!.toString();
-      _idSubjectController.text = widget.scorre!.idSubject!.toString();
-      _idPhaseController.text = widget.scorre!.idPhase!.toString();
-      _valueScorreController.text = widget.scorre!.valueScorre!.toString();
+      _idClassAcademyController.text = (widget.scorre!.idClassAcademy == null)
+          ? ""
+          : widget.scorre!.idClassAcademy!.toString();
+      _idSubjectController.text = (widget.scorre!.idSubject == null)
+          ? ""
+          : widget.scorre!.idSubject!.toString();
+      _idPhaseController.text = (widget.scorre!.idPhase == null)
+          ? ""
+          : widget.scorre!.idPhase!.toString();
+      _valueScorreController.text = (widget.scorre!.valueScorre == null)
+          ? ""
+          : widget.scorre!.valueScorre!.toString();
     }
   }
 
@@ -181,7 +188,7 @@ class _CadScorrePageState extends State<CadScorrePage> {
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => ListScorre(
+            builder: (context) => ListScorrePage(
                   searchId: int.tryParse(_idController.text),
                   searchIdClassAcademy:
                       int.tryParse(_idClassAcademyController.text),

@@ -5,37 +5,37 @@ import 'package:sqflite/utils/utils.dart';
 
 class PhaseHelper {
   static const sqlCreatePhase = '''
-    CREATE TABLE IF NOT EXISTS ${Phase.tabela} (
-      ${Phase.filedId} INTEGER PRIMARY KEY AUTOINCREMENT,
-      ${Phase.filedName} TEXT
+    CREATE TABLE IF NOT EXISTS ${Phase.tableName} (
+      ${Phase.fieldId} INTEGER PRIMARY KEY AUTOINCREMENT,
+      ${Phase.fieldName} TEXT
     )
   ''';
 
   Future<Phase> insert(Phase phase) async {
     Database db = await ConectDatabase().db;
 
-    phase.id = await db.insert(Phase.tabela, phase.toMap());
+    phase.id = await db.insert(Phase.tableName, phase.toMap());
     return phase;
   }
 
   Future<int> update(Phase phase) async {
     Database db = await ConectDatabase().db;
 
-    return db.update(Phase.tabela, phase.toMap(),
-        where: '${Phase.filedId} = ?', whereArgs: [phase.id]);
+    return db.update(Phase.tableName, phase.toMap(),
+        where: '${Phase.fieldId} = ?', whereArgs: [phase.id]);
   }
 
   Future<int> Delete(Phase phase) async {
     Database db = await ConectDatabase().db;
 
-    return db.delete(Phase.tabela,
-        where: '${Phase.filedId} = ?', whereArgs: [phase.id]);
+    return db.delete(Phase.tableName,
+        where: '${Phase.fieldId} = ?', whereArgs: [phase.id]);
   }
 
   Future<List<Phase>> All() async {
     Database db = await ConectDatabase().db;
     //List dbData = await db.rawQuery('SELECT * FROM editora');
-    List dbData = await db.query(Phase.tabela);
+    List dbData = await db.query(Phase.tableName);
     return dbData.map((e) => Phase.fromMap(e)).toList();
   }
 
@@ -43,17 +43,17 @@ class PhaseHelper {
     List conditions = [];
     List Args = [];
     if (searchId != null) {
-      conditions.add('${Phase.filedId} like ?');
+      conditions.add('${Phase.fieldId} like ?');
       Args.add('%${searchId}%');
     }
     if (searchName != null) {
-      conditions.add('upper(${Phase.filedName}) like ?');
+      conditions.add('upper(${Phase.fieldName}) like ?');
       Args.add('%${searchName.toUpperCase()}%');
     }
 
     Database db = await ConectDatabase().db;
-    List dbData = await db.query(Phase.tabela,
-        columns: [Phase.filedId, Phase.filedName],
+    List dbData = await db.query(Phase.tableName,
+        columns: [Phase.fieldId, Phase.fieldName],
         where: (conditions.length > 0) ? conditions.join(" and ") : null,
         whereArgs: (conditions.length > 0) ? Args : null);
     return dbData.map((e) => Phase.fromMap(e)).toList();
@@ -61,9 +61,9 @@ class PhaseHelper {
 
   Future<Phase?> getPhase(int id) async {
     Database db = await ConectDatabase().db;
-    List dbData = await db.query(Phase.tabela,
-        columns: [Phase.filedId, Phase.filedName],
-        where: '${Phase.filedId} = ?',
+    List dbData = await db.query(Phase.tableName,
+        columns: [Phase.fieldId, Phase.fieldName],
+        where: '${Phase.fieldId} = ?',
         whereArgs: [id]);
 
     if (dbData.isNotEmpty) {
@@ -76,7 +76,7 @@ class PhaseHelper {
     Database db = await ConectDatabase().db;
 
     return firstIntValue(
-            await db.rawQuery('SELECT COUNT(*) FROM ${Phase.tabela}')) ??
+            await db.rawQuery('SELECT COUNT(*) FROM ${Phase.tableName}')) ??
         0;
   }
 }

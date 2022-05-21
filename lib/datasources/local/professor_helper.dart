@@ -6,13 +6,13 @@ import 'package:sqflite/utils/utils.dart';
 class ProfessorHelper {
   static const sqlCreateProfessor = '''
     CREATE TABLE IF NOT EXISTS ${Professor.tableName} (
-      ${Professor.filedId} INTEGER PRIMARY KEY AUTOINCREMENT,
-      ${Professor.filedName} TEXT,
-      ${Professor.filedSurName} TEXT,
-      ${Professor.filedRG} TEXT,
-      ${Professor.filedCPF} TEXT,
-      ${Professor.filedBirthDate} DATETIME,
-      ${Professor.filedSex} TEXT
+      ${Professor.fieldId} INTEGER PRIMARY KEY AUTOINCREMENT,
+      ${Professor.fieldName} TEXT,
+      ${Professor.fieldSurName} TEXT,
+      ${Professor.fieldRG} TEXT,
+      ${Professor.fieldCPF} TEXT,
+      ${Professor.fieldBirthDate} DATETIME,
+      ${Professor.fieldSex} TEXT
     )
   ''';
 
@@ -27,14 +27,14 @@ class ProfessorHelper {
     Database db = await ConectDatabase().db;
 
     return db.update(Professor.tableName, professor.toMap(),
-        where: '${Professor.filedId} = ?', whereArgs: [professor.id]);
+        where: '${Professor.fieldId} = ?', whereArgs: [professor.id]);
   }
 
   Future<int> Delete(Professor professor) async {
     Database db = await ConectDatabase().db;
 
     return db.delete(Professor.tableName,
-        where: '${Professor.filedId} = ?', whereArgs: [professor.id]);
+        where: '${Professor.fieldId} = ?', whereArgs: [professor.id]);
   }
 
   Future<List<Professor>> All() async {
@@ -42,13 +42,13 @@ class ProfessorHelper {
     List dbData = await db.query(
       Professor.tableName,
       columns: [
-        Professor.filedId,
-        Professor.filedName,
-        Professor.filedSurName,
-        Professor.filedRG,
-        Professor.filedCPF,
-        Professor.filedBirthDate,
-        Professor.filedSex
+        Professor.fieldId,
+        Professor.fieldName,
+        Professor.fieldSurName,
+        Professor.fieldRG,
+        Professor.fieldCPF,
+        Professor.fieldBirthDate,
+        Professor.fieldSex
       ],
     );
     return dbData.map((e) => Professor.fromMap(e)).toList();
@@ -65,40 +65,40 @@ class ProfessorHelper {
     List conditions = [];
     List Args = [];
     if ((searchId != null)) {
-      conditions.add('${Professor.filedId} like ?');
+      conditions.add('${Professor.fieldId} like ?');
       Args.add('%${searchId}%');
     }
     if ((searchName != null) && (searchName.length > 0)) {
-      conditions.add('upper(${Professor.filedName}) like ?');
+      conditions.add('upper(${Professor.fieldName}) like ?');
       Args.add('%${searchName.toUpperCase()}%');
     }
     if ((searchSureName != null) && (searchSureName.length > 0)) {
-      conditions.add('upper(${Professor.filedSurName}) like ?');
+      conditions.add('upper(${Professor.fieldSurName}) like ?');
       Args.add('%${searchSureName.toUpperCase()}%');
     }
     if ((searchRG != null) && (searchRG.length > 0)) {
-      conditions.add('upper(${Professor.filedRG}) like ?');
+      conditions.add('upper(${Professor.fieldRG}) like ?');
       Args.add('%${searchRG.toUpperCase()}%');
     }
     if ((searchCPF != null) && (searchCPF.length > 0)) {
-      conditions.add('upper(${Professor.filedCPF}) like ?');
+      conditions.add('upper(${Professor.fieldCPF}) like ?');
       Args.add('%${searchCPF.toUpperCase()}%');
     }
     if ((searchBirthDate != null)) {
-      conditions.add('upper(${Professor.filedBirthDate}) like ?');
+      conditions.add('upper(${Professor.fieldBirthDate}) like ?');
       Args.add('%${searchBirthDate}%');
     }
 
     Database db = await ConectDatabase().db;
     List dbData = await db.query(Professor.tableName,
         columns: [
-          Professor.filedId,
-          Professor.filedName,
-          Professor.filedSurName,
-          Professor.filedRG,
-          Professor.filedCPF,
-          Professor.filedBirthDate,
-          Professor.filedSex
+          Professor.fieldId,
+          Professor.fieldName,
+          Professor.fieldSurName,
+          Professor.fieldRG,
+          Professor.fieldCPF,
+          Professor.fieldBirthDate,
+          Professor.fieldSex
         ],
         where: (conditions.length > 0) ? conditions.join(" and ") : null,
         whereArgs: (conditions.length > 0) ? Args : null);
@@ -108,8 +108,8 @@ class ProfessorHelper {
   Future<Professor?> getProfessor(int id) async {
     Database db = await ConectDatabase().db;
     List dbData = await db.query(Professor.tableName,
-        columns: [Professor.filedId, Professor.filedName],
-        where: '${Professor.filedId} = ?',
+        columns: [Professor.fieldId, Professor.fieldName],
+        where: '${Professor.fieldId} = ?',
         whereArgs: [id]);
 
     if (dbData.isNotEmpty) {

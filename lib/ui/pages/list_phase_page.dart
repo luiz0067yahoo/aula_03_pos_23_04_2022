@@ -4,15 +4,16 @@ import 'package:aula_03_pos/ui/components/custom_message.dart';
 import 'package:aula_03_pos/ui/pages/cad_phase_page.dart';
 import 'package:flutter/material.dart';
 
-class ListPhase extends StatefulWidget {
+class ListPhasePage extends StatefulWidget {
   final int? searchId;
   final String? searchName;
-  const ListPhase({this.searchId, this.searchName, Key? key}) : super(key: key);
+  const ListPhasePage({this.searchId, this.searchName, Key? key})
+      : super(key: key);
   @override
-  State<ListPhase> createState() => _ListPhaseState();
+  State<ListPhasePage> createState() => _ListPhasePageState();
 }
 
-class _ListPhaseState extends State<ListPhase> {
+class _ListPhasePageState extends State<ListPhasePage> {
   final _phaseHelper = PhaseHelper();
 
   @override

@@ -183,7 +183,7 @@ class _CadFrequencyPageState extends State<CadFrequencyPage> {
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => ListFrequency(
+            builder: (context) => ListFrequencyPage(
                   searchId: int.tryParse(_idController.text),
                   searchIdClassAcademy:
                       int.tryParse(_idClassAcademyController.text),

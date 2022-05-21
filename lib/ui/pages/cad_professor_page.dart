@@ -209,7 +209,7 @@ class _CadProfessorPageState extends State<CadProfessorPage> {
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => ListProfessor(
+            builder: (context) => ListProfessorPage(
                   searchId: int.tryParse(_idController.text),
                   searchName: _nameController.text,
                   searchRG: _RGController.text,

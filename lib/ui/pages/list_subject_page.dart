@@ -4,16 +4,16 @@ import 'package:aula_03_pos/ui/components/custom_message.dart';
 import 'package:aula_03_pos/ui/pages/cad_subject_page.dart';
 import 'package:flutter/material.dart';
 
-class ListSubject extends StatefulWidget {
+class ListSubjectPage extends StatefulWidget {
   final int? searchId;
   final String? searchName;
-  const ListSubject({this.searchId, this.searchName, Key? key})
+  const ListSubjectPage({this.searchId, this.searchName, Key? key})
       : super(key: key);
   @override
-  State<ListSubject> createState() => _ListSubjectState();
+  State<ListSubjectPage> createState() => _ListSubjectPageState();
 }
 
-class _ListSubjectState extends State<ListSubject> {
+class _ListSubjectPageState extends State<ListSubjectPage> {
   final _subjectHelper = SubjectHelper();
 
   @override

@@ -4,14 +4,14 @@ import 'package:aula_03_pos/ui/components/custom_message.dart';
 import 'package:aula_03_pos/ui/pages/cad_scorre_page.dart';
 import 'package:flutter/material.dart';
 
-class ListScorre extends StatefulWidget {
+class ListScorrePage extends StatefulWidget {
   final int? searchId;
   final int? searchIdStudent;
   final int? searchIdClassAcademy;
   final int? searchIdSubject;
   final int? searchIdPhase;
   final int? searchValueScorre;
-  const ListScorre(
+  const ListScorrePage(
       {this.searchId,
       this.searchIdStudent,
       this.searchIdClassAcademy,
@@ -21,10 +21,10 @@ class ListScorre extends StatefulWidget {
       Key? key})
       : super(key: key);
   @override
-  State<ListScorre> createState() => _ListScorreState();
+  State<ListScorrePage> createState() => _ListScorrePageState();
 }
 
-class _ListScorreState extends State<ListScorre> {
+class _ListScorrePageState extends State<ListScorrePage> {
   final _scorreHelper = ScorreHelper();
 
   @override
@@ -70,12 +70,12 @@ class _ListScorreState extends State<ListScorre> {
       ),
       body: FutureBuilder(
         future: _scorreHelper.Find(
-          widget!.searchId!,
-          widget!.searchIdStudent!,
-          widget!.searchIdClassAcademy!,
-          widget!.searchIdStudent!,
-          widget!.searchIdPhase!,
-          widget!.searchValueScorre!,
+          widget.searchId,
+          widget.searchIdStudent,
+          widget.searchIdClassAcademy,
+          widget.searchIdStudent,
+          widget.searchIdPhase,
+          widget.searchValueScorre,
         ),
         builder: (context, snapshot) {
           switch (snapshot.connectionState) {

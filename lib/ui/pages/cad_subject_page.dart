@@ -163,7 +163,7 @@ class _CadSubjectPageState extends State<CadSubjectPage> {
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => ListSubject(
+            builder: (context) => ListSubjectPage(
                   searchId: int.tryParse(_idController.text),
                   searchName: _nameController.text,
                 )));

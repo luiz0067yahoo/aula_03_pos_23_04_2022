@@ -4,16 +4,16 @@ import 'package:aula_03_pos/ui/components/custom_message.dart';
 import 'package:aula_03_pos/ui/pages/cad_class_academy_page.dart';
 import 'package:flutter/material.dart';
 
-class ListClassAcademy extends StatefulWidget {
+class ListClassAcademyPage extends StatefulWidget {
   final int? searchId;
   final String? searchName;
-  const ListClassAcademy({this.searchId, this.searchName, Key? key})
+  const ListClassAcademyPage({this.searchId, this.searchName, Key? key})
       : super(key: key);
   @override
-  State<ListClassAcademy> createState() => _ListClassAcademyState();
+  State<ListClassAcademyPage> createState() => _ListClassAcademyPageState();
 }
 
-class _ListClassAcademyState extends State<ListClassAcademy> {
+class _ListClassAcademyPageState extends State<ListClassAcademyPage> {
   final _classAcademyHelper = ClassAcademyHelper();
 
   @override

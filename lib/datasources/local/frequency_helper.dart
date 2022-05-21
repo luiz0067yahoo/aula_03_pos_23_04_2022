@@ -4,13 +4,18 @@ import 'package:sqflite/sqflite.dart';
 import 'package:sqflite/utils/utils.dart';
 
 class FrequencyHelper {
+  static const sqlDropFrequency = '''
+
+    DROP TABLE IF  EXISTS ${Frequency.tableName} ;s
+  ''';
   static const sqlCreateFrequency = '''
     CREATE TABLE IF NOT EXISTS ${Frequency.tableName} (
-      ${Frequency.filedId} INTEGER PRIMARY KEY AUTOINCREMENT,
-      ${Frequency.filedIdStudent} INTEGER ,
-      ${Frequency.filedIdSubject} INTEGER ,
-      ${Frequency.filedIdPhase} INTEGER ,
-      ${Frequency.filedValueFrequency} INTEGER 
+      ${Frequency.fieldId} INTEGER PRIMARY KEY AUTOINCREMENT,
+      ${Frequency.fieldIdStudent} INTEGER ,
+      ${Frequency.fieldIdSubject} INTEGER ,
+      ${Frequency.fieldIdClassAcademy} INTEGER ,
+      ${Frequency.fieldIdPhase} INTEGER ,
+      ${Frequency.fieldValueFrequency} INTEGER 
     )
   ''';
 
@@ -25,14 +30,14 @@ class FrequencyHelper {
     Database db = await ConectDatabase().db;
 
     return db.update(Frequency.tableName, frequency.toMap(),
-        where: '${Frequency.filedId} = ?', whereArgs: [frequency.id]);
+        where: '${Frequency.fieldId} = ?', whereArgs: [frequency.id]);
   }
 
   Future<int> Delete(Frequency frequency) async {
     Database db = await ConectDatabase().db;
 
     return db.delete(Frequency.tableName,
-        where: '${Frequency.filedId} = ?', whereArgs: [frequency.id]);
+        where: '${Frequency.fieldId} = ?', whereArgs: [frequency.id]);
   }
 
   Future<List<Frequency>> All() async {
@@ -52,34 +57,35 @@ class FrequencyHelper {
     List conditions = [];
     List Args = [];
     if (searchId != null) {
-      conditions.add('${Frequency.filedId} like ?');
+      conditions.add('${Frequency.fieldId} like ?');
       Args.add('${searchId}');
     }
     if (searchIdStudent != null) {
-      conditions.add('${Frequency.filedIdStudent} like ?');
+      conditions.add('${Frequency.fieldIdStudent} like ?');
       Args.add('${searchIdStudent}');
     }
     if (searchIdClassAcademy != null) {
-      conditions.add('${Frequency.filedIdClassAcademy} like ?');
+      conditions.add('${Frequency.fieldIdClassAcademy} like ?');
       Args.add('${searchIdClassAcademy}');
     }
     if (searchIdSubject != null) {
-      conditions.add('${Frequency.filedIdStudent} like ?');
+      conditions.add('${Frequency.fieldIdStudent} like ?');
       Args.add('${searchIdStudent}');
     }
     if (searchValueFrequency != null) {
-      conditions.add('${Frequency.filedValueFrequency} like ?');
+      conditions.add('${Frequency.fieldValueFrequency} like ?');
       Args.add('${searchValueFrequency}');
     }
 
     Database db = await ConectDatabase().db;
     List dbData = await db.query(Frequency.tableName,
         columns: [
-          Frequency.filedId,
-          Frequency.filedIdStudent,
-          Frequency.filedIdClassAcademy,
-          Frequency.filedIdSubject,
-          Frequency.filedValueFrequency
+          Frequency.fieldId,
+          Frequency.fieldIdStudent,
+          Frequency.fieldIdClassAcademy,
+          Frequency.fieldIdSubject,
+          Frequency.fieldIdPhase,
+          Frequency.fieldValueFrequency
         ],
         where: (conditions.length > 0) ? conditions.join(" and ") : null,
         whereArgs: (conditions.length > 0) ? Args : null);
@@ -90,13 +96,14 @@ class FrequencyHelper {
     Database db = await ConectDatabase().db;
     List dbData = await db.query(Frequency.tableName,
         columns: [
-          Frequency.filedId,
-          Frequency.filedIdStudent,
-          Frequency.filedIdClassAcademy,
-          Frequency.filedIdSubject,
-          Frequency.filedValueFrequency
+          Frequency.fieldId,
+          Frequency.fieldIdStudent,
+          Frequency.fieldIdClassAcademy,
+          Frequency.fieldIdSubject,
+          Frequency.fieldIdPhase,
+          Frequency.fieldValueFrequency,
         ],
-        where: '${Frequency.filedId} = ?',
+        where: '${Frequency.fieldId} = ?',
         whereArgs: [id]);
 
     if (dbData.isNotEmpty) {

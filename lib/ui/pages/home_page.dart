@@ -17,7 +17,10 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Academy System Plus'),
+        title: const Text(
+          'Academy System Plus',
+          style: TextStyle(fontSize: 28),
+        ),
       ),
       body: ListView(children: [HomeMenu()]),
     );

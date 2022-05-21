@@ -6,13 +6,13 @@ import 'package:sqflite/utils/utils.dart';
 class StudentHelper {
   static const sqlCreateStudent = '''
     CREATE TABLE IF NOT EXISTS ${Student.tableName} (
-      ${Student.filedId} INTEGER PRIMARY KEY AUTOINCREMENT,
-      ${Student.filedName} TEXT,
-      ${Student.filedSurName} TEXT,
-      ${Student.filedRG} TEXT,
-      ${Student.filedCPF} TEXT,
-      ${Student.filedBirthDate} DATETIME,
-      ${Student.filedSex} TEXT
+      ${Student.fieldId} INTEGER PRIMARY KEY AUTOINCREMENT,
+      ${Student.fieldName} TEXT,
+      ${Student.fieldSurName} TEXT,
+      ${Student.fieldRG} TEXT,
+      ${Student.fieldCPF} TEXT,
+      ${Student.fieldBirthDate} DATETIME,
+      ${Student.fieldSex} TEXT
     )
   ''';
 
@@ -27,14 +27,14 @@ class StudentHelper {
     Database db = await ConectDatabase().db;
 
     return db.update(Student.tableName, student.toMap(),
-        where: '${Student.filedId} = ?', whereArgs: [student.id]);
+        where: '${Student.fieldId} = ?', whereArgs: [student.id]);
   }
 
   Future<int> Delete(Student student) async {
     Database db = await ConectDatabase().db;
 
     return db.delete(Student.tableName,
-        where: '${Student.filedId} = ?', whereArgs: [student.id]);
+        where: '${Student.fieldId} = ?', whereArgs: [student.id]);
   }
 
   Future<List<Student>> All() async {
@@ -42,13 +42,13 @@ class StudentHelper {
     List dbData = await db.query(
       Student.tableName,
       columns: [
-        Student.filedId,
-        Student.filedName,
-        Student.filedSurName,
-        Student.filedRG,
-        Student.filedCPF,
-        Student.filedBirthDate,
-        Student.filedSex
+        Student.fieldId,
+        Student.fieldName,
+        Student.fieldSurName,
+        Student.fieldRG,
+        Student.fieldCPF,
+        Student.fieldBirthDate,
+        Student.fieldSex
       ],
     );
     return dbData.map((e) => Student.fromMap(e)).toList();
@@ -65,40 +65,40 @@ class StudentHelper {
     List conditions = [];
     List Args = [];
     if ((searchId != null)) {
-      conditions.add('${Student.filedId} like ?');
+      conditions.add('${Student.fieldId} like ?');
       Args.add('%${searchId}%');
     }
     if ((searchName != null) && (searchName.length > 0)) {
-      conditions.add('upper(${Student.filedName}) like ?');
+      conditions.add('upper(${Student.fieldName}) like ?');
       Args.add('%${searchName.toUpperCase()}%');
     }
     if ((searchSureName != null) && (searchSureName.length > 0)) {
-      conditions.add('upper(${Student.filedSurName}) like ?');
+      conditions.add('upper(${Student.fieldSurName}) like ?');
       Args.add('%${searchSureName.toUpperCase()}%');
     }
     if ((searchRG != null) && (searchRG.length > 0)) {
-      conditions.add('upper(${Student.filedRG}) like ?');
+      conditions.add('upper(${Student.fieldRG}) like ?');
       Args.add('%${searchRG.toUpperCase()}%');
     }
     if ((searchCPF != null) && (searchCPF.length > 0)) {
-      conditions.add('upper(${Student.filedCPF}) like ?');
+      conditions.add('upper(${Student.fieldCPF}) like ?');
       Args.add('%${searchCPF.toUpperCase()}%');
     }
     if ((searchBirthDate != null)) {
-      conditions.add('upper(${Student.filedBirthDate}) like ?');
+      conditions.add('upper(${Student.fieldBirthDate}) like ?');
       Args.add('%${searchBirthDate}%');
     }
 
     Database db = await ConectDatabase().db;
     List dbData = await db.query(Student.tableName,
         columns: [
-          Student.filedId,
-          Student.filedName,
-          Student.filedSurName,
-          Student.filedRG,
-          Student.filedCPF,
-          Student.filedBirthDate,
-          Student.filedSex
+          Student.fieldId,
+          Student.fieldName,
+          Student.fieldSurName,
+          Student.fieldRG,
+          Student.fieldCPF,
+          Student.fieldBirthDate,
+          Student.fieldSex
         ],
         where: (conditions.length > 0) ? conditions.join(" and ") : null,
         whereArgs: (conditions.length > 0) ? Args : null);
@@ -108,8 +108,8 @@ class StudentHelper {
   Future<Student?> getStudent(int id) async {
     Database db = await ConectDatabase().db;
     List dbData = await db.query(Student.tableName,
-        columns: [Student.filedId, Student.filedName],
-        where: '${Student.filedId} = ?',
+        columns: [Student.fieldId, Student.fieldName],
+        where: '${Student.fieldId} = ?',
         whereArgs: [id]);
 
     if (dbData.isNotEmpty) {

@@ -6,8 +6,8 @@ import 'package:sqflite/utils/utils.dart';
 class SubjectHelper {
   static const sqlCreateSubject = '''
     CREATE TABLE IF NOT EXISTS ${Subject.tableName} (
-      ${Subject.filedId} INTEGER PRIMARY KEY AUTOINCREMENT,
-      ${Subject.filedName} TEXT
+      ${Subject.fieldId} INTEGER PRIMARY KEY AUTOINCREMENT,
+      ${Subject.fieldName} TEXT
     );
   ''';
 
@@ -22,14 +22,14 @@ class SubjectHelper {
     Database db = await ConectDatabase().db;
 
     return db.update(Subject.tableName, subject.toMap(),
-        where: '${Subject.filedId} = ?', whereArgs: [subject.id]);
+        where: '${Subject.fieldId} = ?', whereArgs: [subject.id]);
   }
 
   Future<int> Delete(Subject subject) async {
     Database db = await ConectDatabase().db;
 
     return db.delete(Subject.tableName,
-        where: '${Subject.filedId} = ?', whereArgs: [subject.id]);
+        where: '${Subject.fieldId} = ?', whereArgs: [subject.id]);
   }
 
   Future<List<Subject>> All() async {
@@ -43,17 +43,17 @@ class SubjectHelper {
     List conditions = [];
     List Args = [];
     if (searchId != null) {
-      conditions.add('${Subject.filedId} like ?');
+      conditions.add('${Subject.fieldId} like ?');
       Args.add('%${searchId}%');
     }
     if (searchName != null) {
-      conditions.add('upper(${Subject.filedName}) like ?');
+      conditions.add('upper(${Subject.fieldName}) like ?');
       Args.add('%${searchName.toUpperCase()}%');
     }
 
     Database db = await ConectDatabase().db;
     List dbData = await db.query(Subject.tableName,
-        columns: [Subject.filedId, Subject.filedName],
+        columns: [Subject.fieldId, Subject.fieldName],
         where: (conditions.length > 0) ? conditions.join(" and ") : null,
         whereArgs: (conditions.length > 0) ? Args : null);
     return dbData.map((e) => Subject.fromMap(e)).toList();
@@ -62,8 +62,8 @@ class SubjectHelper {
   Future<Subject?> getSubject(int id) async {
     Database db = await ConectDatabase().db;
     List dbData = await db.query(Subject.tableName,
-        columns: [Subject.filedId, Subject.filedName],
-        where: '${Subject.filedId} = ?',
+        columns: [Subject.fieldId, Subject.fieldName],
+        where: '${Subject.fieldId} = ?',
         whereArgs: [id]);
 
     if (dbData.isNotEmpty) {

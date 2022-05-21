@@ -4,12 +4,12 @@ import 'package:aula_03_pos/ui/components/custom_message.dart';
 import 'package:aula_03_pos/ui/pages/cad_class_academy_subject_student_page.dart';
 import 'package:flutter/material.dart';
 
-class ListClassAcademySubjectStudent extends StatefulWidget {
+class ListClassAcademySubjectStudentPage extends StatefulWidget {
   final int? searchId;
   final int? searchIdClassAcademy;
   final int? searchIdSubject;
   final int? searchIdStudent;
-  const ListClassAcademySubjectStudent(
+  const ListClassAcademySubjectStudentPage(
       {this.searchId,
       this.searchIdClassAcademy,
       this.searchIdSubject,
@@ -17,18 +17,18 @@ class ListClassAcademySubjectStudent extends StatefulWidget {
       Key? key})
       : super(key: key);
   @override
-  State<ListClassAcademySubjectStudent> createState() =>
-      _ListClassAcademySubjectStudentState();
+  State<ListClassAcademySubjectStudentPage> createState() =>
+      _ListClassAcademySubjectStudentPageState();
 }
 
-class _ListClassAcademySubjectStudentState
-    extends State<ListClassAcademySubjectStudent> {
+class _ListClassAcademySubjectStudentPageState
+    extends State<ListClassAcademySubjectStudentPage> {
   final _classAcademySubjectStudentHelper = ClassAcademySubjectStudentHelper();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Turma Disiciplina Student')),
+      appBar: AppBar(title: const Text('Turma Disiciplina Aluno')),
       floatingActionButton: Stack(
         fit: StackFit.expand,
         children: [
@@ -159,51 +159,52 @@ class _ListClassAcademySubjectStudentState
             ((i % 2) != 0) ? Color.fromARGB(220, 220, 220, 220) : Colors.white,
         child: Padding(
           padding: const EdgeInsets.all(16),
-          child: Row(
-            children: [
-              SizedBox(
-                  width: 30,
-                  child: Text(
-                    classAcademySubjectStudent.id.toString(),
-                    style: const TextStyle(fontSize: 28),
-                    textAlign: TextAlign.end,
-                  )),
-              SizedBox(width: 10),
-              SizedBox(
-                width: 2,
-                height: 30,
-                child: const DecoratedBox(
-                    decoration: const BoxDecoration(color: Colors.black54)),
-              ),
-              SizedBox(width: 10),
-              Text(
-                classAcademySubjectStudent.idClassAcademy.toString(),
-                style: const TextStyle(fontSize: 28),
-              ),
-              SizedBox(
-                width: 2,
-                height: 30,
-                child: const DecoratedBox(
-                    decoration: const BoxDecoration(color: Colors.black54)),
-              ),
-              SizedBox(width: 10),
-              Text(
-                classAcademySubjectStudent.idSubject.toString(),
-                style: const TextStyle(fontSize: 28),
-              ),
-              SizedBox(
-                width: 2,
-                height: 30,
-                child: const DecoratedBox(
-                    decoration: const BoxDecoration(color: Colors.black54)),
-              ),
-              SizedBox(width: 10),
-              Text(
-                classAcademySubjectStudent.idStudent.toString(),
-                style: const TextStyle(fontSize: 28),
-              ),
-            ],
-          ),
+          child: Row(children: [
+            SizedBox(
+                width: 30,
+                child: Text(
+                  classAcademySubjectStudent.id.toString(),
+                  style: const TextStyle(fontSize: 28),
+                  textAlign: TextAlign.end,
+                )),
+            SizedBox(
+              width: 10,
+              height: 120,
+            ),
+            SizedBox(
+              width: 2,
+              height: 120,
+              child: const DecoratedBox(
+                  decoration: const BoxDecoration(color: Colors.black54)),
+            ),
+            SizedBox(
+              width: 10,
+              height: 120,
+            ),
+            Column(
+              children: [
+                SizedBox(width: 10),
+                Text(
+                  (classAcademySubjectStudent.nameClassAcademy == null)
+                      ? ""
+                      : classAcademySubjectStudent.nameClassAcademy!,
+                  style: const TextStyle(fontSize: 28),
+                ),
+                Text(
+                  (classAcademySubjectStudent.nameSubject == null)
+                      ? ""
+                      : classAcademySubjectStudent.nameSubject!,
+                  style: const TextStyle(fontSize: 28),
+                ),
+                Text(
+                  (classAcademySubjectStudent.nameStudent == null)
+                      ? ""
+                      : classAcademySubjectStudent.nameStudent!,
+                  style: const TextStyle(fontSize: 28),
+                ),
+              ],
+            )
+          ]),
         ),
       ),
       //onTap: () => _openDetails(classAcademySubjectStudent),

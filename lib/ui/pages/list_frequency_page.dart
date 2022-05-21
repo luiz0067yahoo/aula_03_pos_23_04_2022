@@ -4,14 +4,14 @@ import 'package:aula_03_pos/ui/components/custom_message.dart';
 import 'package:aula_03_pos/ui/pages/cad_frequency_page.dart';
 import 'package:flutter/material.dart';
 
-class ListFrequency extends StatefulWidget {
+class ListFrequencyPage extends StatefulWidget {
   final int? searchId;
   final int? searchIdStudent;
   final int? searchIdClassAcademy;
   final int? searchIdSubject;
   final int? searchIdPhase;
   final int? searchValueFrequency;
-  const ListFrequency(
+  const ListFrequencyPage(
       {this.searchId,
       this.searchIdStudent,
       this.searchIdClassAcademy,
@@ -21,10 +21,10 @@ class ListFrequency extends StatefulWidget {
       Key? key})
       : super(key: key);
   @override
-  State<ListFrequency> createState() => _ListFrequencyState();
+  State<ListFrequencyPage> createState() => _ListFrequencyPageState();
 }
 
-class _ListFrequencyState extends State<ListFrequency> {
+class _ListFrequencyPageState extends State<ListFrequencyPage> {
   final _frequencyHelper = FrequencyHelper();
 
   @override
@@ -70,12 +70,12 @@ class _ListFrequencyState extends State<ListFrequency> {
       ),
       body: FutureBuilder(
         future: _frequencyHelper.Find(
-          widget!.searchId!,
-          widget!.searchIdStudent!,
-          widget!.searchIdClassAcademy!,
-          widget!.searchIdStudent!,
-          widget!.searchIdPhase!,
-          widget!.searchValueFrequency!,
+          widget.searchId,
+          widget.searchIdStudent,
+          widget.searchIdClassAcademy,
+          widget.searchIdStudent,
+          widget.searchIdPhase,
+          widget.searchValueFrequency,
         ),
         builder: (context, snapshot) {
           switch (snapshot.connectionState) {

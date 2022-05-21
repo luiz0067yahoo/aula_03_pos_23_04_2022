@@ -4,7 +4,7 @@ import 'package:aula_03_pos/ui/components/custom_message.dart';
 import 'package:aula_03_pos/ui/pages/cad_student_page.dart';
 import 'package:flutter/material.dart';
 
-class ListStudent extends StatefulWidget {
+class ListStudentPage extends StatefulWidget {
   final int? searchId;
   final String? searchName;
   final String? searchSurName;
@@ -12,7 +12,7 @@ class ListStudent extends StatefulWidget {
   final String? searchCPF;
   final DateTime? searchBirthDate;
   final String? searchSex;
-  const ListStudent(
+  const ListStudentPage(
       {this.searchId,
       this.searchName,
       this.searchSurName,
@@ -23,10 +23,10 @@ class ListStudent extends StatefulWidget {
       Key? key})
       : super(key: key);
   @override
-  State<ListStudent> createState() => _ListStudentState();
+  State<ListStudentPage> createState() => _ListStudentPageState();
 }
 
-class _ListStudentState extends State<ListStudent> {
+class _ListStudentPageState extends State<ListStudentPage> {
   final _studentHelper = StudentHelper();
 
   @override

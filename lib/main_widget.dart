@@ -5,6 +5,7 @@ import 'package:aula_03_pos/ui/pages/list_class_academy_subject_student_page.dar
 import 'package:aula_03_pos/ui/pages/list_frequency_page.dart';
 import 'package:aula_03_pos/ui/pages/list_phase_page.dart';
 import 'package:aula_03_pos/ui/pages/list_professor_page.dart';
+import 'package:aula_03_pos/ui/pages/list_report_card_page.dart';
 import 'package:aula_03_pos/ui/pages/list_scorre_page.dart';
 import 'package:aula_03_pos/ui/pages/list_student_page.dart';
 import 'package:aula_03_pos/ui/pages/list_subject_page.dart';
@@ -20,17 +21,18 @@ class mainWidget extends StatelessWidget {
       routes: {
         '/': (context) => HomePage(),
         '/home': (context) => HomePage(),
-        '/student': (context) => ListStudent(),
-        '/professor': (context) => ListProfessor(),
-        '/scorre': (context) => ListScorre(),
-        '/frequency': (context) => ListFrequency(),
-        '/phase': (context) => ListPhase(),
-        '/subject': (context) => ListSubject(),
-        '/class_academy': (context) => ListClassAcademy(),
+        '/student': (context) => ListStudentPage(),
+        '/professor': (context) => ListProfessorPage(),
+        '/scorre': (context) => ListScorrePage(),
+        '/frequency': (context) => ListFrequencyPage(),
+        '/phase': (context) => ListPhasePage(),
+        '/subject': (context) => ListSubjectPage(),
+        '/class_academy': (context) => ListClassAcademyPage(),
         '/class_academy_suject_professor': (context) =>
-            ListClassAcademySubjectProfessor(),
+            ListClassAcademySubjectProfessorPage(),
         '/class_academy_suject_student': (context) =>
-            ListClassAcademySubjectStudent(),
+            ListClassAcademySubjectStudentPage(),
+        '/report_card': (context) => ListReportCardPage(),
       },
     );
   }

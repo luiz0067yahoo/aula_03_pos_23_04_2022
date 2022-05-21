@@ -162,7 +162,7 @@ class _CadPhasePageState extends State<CadPhasePage> {
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => ListPhase(
+            builder: (context) => ListPhasePage(
                   searchId: int.tryParse(_idController.text),
                   searchName: _nameController.text,
                 )));

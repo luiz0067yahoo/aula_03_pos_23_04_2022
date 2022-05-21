@@ -208,7 +208,7 @@ class _CadStudentPageState extends State<CadStudentPage> {
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => ListStudent(
+            builder: (context) => ListStudentPage(
                   searchId: int.tryParse(_idController.text),
                   searchName: _nameController.text,
                   searchRG: _RGController.text,

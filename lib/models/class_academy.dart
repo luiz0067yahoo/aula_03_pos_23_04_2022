@@ -1,7 +1,7 @@
 class ClassAcademy {
-  static const tabela = 'classAcademy';
-  static const filedId = 'id';
-  static const filedName = 'name';
+  static const tableName = 'classAcademy';
+  static const fieldId = 'id';
+  static const fieldName = 'name';
   int? id;
   String name;
 
@@ -9,11 +9,11 @@ class ClassAcademy {
 
   factory ClassAcademy.fromMap(Map map) {
     return ClassAcademy(
-        id: int.tryParse(map[ClassAcademy.filedId].toString()),
-        name: map[ClassAcademy.filedName]);
+        id: int.tryParse(map[ClassAcademy.fieldId].toString()),
+        name: map[ClassAcademy.fieldName]);
   }
 
   Map<String, dynamic> toMap() {
-    return {ClassAcademy.filedId: id, ClassAcademy.filedName: name};
+    return {ClassAcademy.fieldId: id, ClassAcademy.fieldName: name};
   }
 }

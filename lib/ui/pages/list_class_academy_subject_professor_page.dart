@@ -4,12 +4,12 @@ import 'package:aula_03_pos/ui/components/custom_message.dart';
 import 'package:aula_03_pos/ui/pages/cad_class_academy_subject_professor_page.dart';
 import 'package:flutter/material.dart';
 
-class ListClassAcademySubjectProfessor extends StatefulWidget {
+class ListClassAcademySubjectProfessorPage extends StatefulWidget {
   final int? searchId;
   final int? searchIdClassAcademy;
   final int? searchIdSubject;
   final int? searchIdProfessor;
-  const ListClassAcademySubjectProfessor(
+  const ListClassAcademySubjectProfessorPage(
       {this.searchId,
       this.searchIdClassAcademy,
       this.searchIdSubject,
@@ -17,12 +17,12 @@ class ListClassAcademySubjectProfessor extends StatefulWidget {
       Key? key})
       : super(key: key);
   @override
-  State<ListClassAcademySubjectProfessor> createState() =>
-      _ListClassAcademySubjectProfessorState();
+  State<ListClassAcademySubjectProfessorPage> createState() =>
+      _ListClassAcademySubjectProfessorPageState();
 }
 
-class _ListClassAcademySubjectProfessorState
-    extends State<ListClassAcademySubjectProfessor> {
+class _ListClassAcademySubjectProfessorPageState
+    extends State<ListClassAcademySubjectProfessorPage> {
   final _classAcademySubjectProfessorHelper =
       ClassAcademySubjectProfessorHelper();
 
@@ -160,51 +160,52 @@ class _ListClassAcademySubjectProfessorState
             ((i % 2) != 0) ? Color.fromARGB(220, 220, 220, 220) : Colors.white,
         child: Padding(
           padding: const EdgeInsets.all(16),
-          child: Row(
-            children: [
-              SizedBox(
-                  width: 30,
-                  child: Text(
-                    classAcademySubjectProfessor.id.toString(),
-                    style: const TextStyle(fontSize: 28),
-                    textAlign: TextAlign.end,
-                  )),
-              SizedBox(width: 10),
-              SizedBox(
-                width: 2,
-                height: 30,
-                child: const DecoratedBox(
-                    decoration: const BoxDecoration(color: Colors.black54)),
-              ),
-              SizedBox(width: 10),
-              Text(
-                classAcademySubjectProfessor.idClassAcademy.toString(),
-                style: const TextStyle(fontSize: 28),
-              ),
-              SizedBox(
-                width: 2,
-                height: 30,
-                child: const DecoratedBox(
-                    decoration: const BoxDecoration(color: Colors.black54)),
-              ),
-              SizedBox(width: 10),
-              Text(
-                classAcademySubjectProfessor.idSubject.toString(),
-                style: const TextStyle(fontSize: 28),
-              ),
-              SizedBox(
-                width: 2,
-                height: 30,
-                child: const DecoratedBox(
-                    decoration: const BoxDecoration(color: Colors.black54)),
-              ),
-              SizedBox(width: 10),
-              Text(
-                classAcademySubjectProfessor.idProfessor.toString(),
-                style: const TextStyle(fontSize: 28),
-              ),
-            ],
-          ),
+          child: Row(children: [
+            SizedBox(
+                width: 30,
+                child: Text(
+                  classAcademySubjectProfessor.id.toString(),
+                  style: const TextStyle(fontSize: 28),
+                  textAlign: TextAlign.end,
+                )),
+            SizedBox(
+              width: 10,
+              height: 120,
+            ),
+            SizedBox(
+              width: 2,
+              height: 120,
+              child: const DecoratedBox(
+                  decoration: const BoxDecoration(color: Colors.black54)),
+            ),
+            SizedBox(
+              width: 10,
+              height: 120,
+            ),
+            Column(
+              children: [
+                SizedBox(width: 10),
+                Text(
+                  (classAcademySubjectProfessor.nameClassAcademy == null)
+                      ? ""
+                      : classAcademySubjectProfessor.nameClassAcademy!,
+                  style: const TextStyle(fontSize: 28),
+                ),
+                Text(
+                  (classAcademySubjectProfessor.nameSubject == null)
+                      ? ""
+                      : classAcademySubjectProfessor.nameSubject!,
+                  style: const TextStyle(fontSize: 28),
+                ),
+                Text(
+                  (classAcademySubjectProfessor.nameProfessor == null)
+                      ? ""
+                      : classAcademySubjectProfessor.nameProfessor!,
+                  style: const TextStyle(fontSize: 28),
+                ),
+              ],
+            )
+          ]),
         ),
       ),
       //onTap: () => _openDetails(classAcademySubjectProfessor),

@@ -179,7 +179,7 @@ class _CadClassAcademySubjectProfessorPageState
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => ListClassAcademySubjectProfessor(
+            builder: (context) => ListClassAcademySubjectProfessorPage(
                   searchId: int.tryParse(_idController.text),
                   searchIdClassAcademy: int.tryParse(_idController.text),
                   searchIdSubject: int.tryParse(_idSubjectController.text),

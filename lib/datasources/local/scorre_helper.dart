@@ -4,13 +4,18 @@ import 'package:sqflite/sqflite.dart';
 import 'package:sqflite/utils/utils.dart';
 
 class ScorreHelper {
+  static const sqlDropScorre = '''
+
+    DROP TABLE IF  EXISTS ${Scorre.tableName} ;s
+  ''';
   static const sqlCreateScorre = '''
     CREATE TABLE IF NOT EXISTS ${Scorre.tableName} (
-      ${Scorre.filedId} INTEGER PRIMARY KEY AUTOINCREMENT,
-      ${Scorre.filedIdStudent} INTEGER ,
-      ${Scorre.filedIdSubject} INTEGER ,
-      ${Scorre.filedIdPhase} INTEGER ,
-      ${Scorre.filedValueScorre} INTEGER 
+      ${Scorre.fieldId} INTEGER PRIMARY KEY AUTOINCREMENT,
+      ${Scorre.fieldIdStudent} INTEGER ,
+      ${Scorre.fieldIdSubject} INTEGER ,
+      ${Scorre.fieldIdClassAcademy} INTEGER ,
+      ${Scorre.fieldIdPhase} INTEGER ,
+      ${Scorre.fieldValueScorre} INTEGER 
     )
   ''';
 
@@ -25,14 +30,14 @@ class ScorreHelper {
     Database db = await ConectDatabase().db;
 
     return db.update(Scorre.tableName, scorre.toMap(),
-        where: '${Scorre.filedId} = ?', whereArgs: [scorre.id]);
+        where: '${Scorre.fieldId} = ?', whereArgs: [scorre.id]);
   }
 
   Future<int> Delete(Scorre scorre) async {
     Database db = await ConectDatabase().db;
 
     return db.delete(Scorre.tableName,
-        where: '${Scorre.filedId} = ?', whereArgs: [scorre.id]);
+        where: '${Scorre.fieldId} = ?', whereArgs: [scorre.id]);
   }
 
   Future<List<Scorre>> All() async {
@@ -52,34 +57,35 @@ class ScorreHelper {
     List conditions = [];
     List Args = [];
     if (searchId != null) {
-      conditions.add('${Scorre.filedId} like ?');
+      conditions.add('${Scorre.fieldId} like ?');
       Args.add('${searchId}');
     }
     if (searchIdStudent != null) {
-      conditions.add('${Scorre.filedIdStudent} like ?');
+      conditions.add('${Scorre.fieldIdStudent} like ?');
       Args.add('${searchIdStudent}');
     }
     if (searchIdClassAcademy != null) {
-      conditions.add('${Scorre.filedIdClassAcademy} like ?');
+      conditions.add('${Scorre.fieldIdClassAcademy} like ?');
       Args.add('${searchIdClassAcademy}');
     }
     if (searchIdSubject != null) {
-      conditions.add('${Scorre.filedIdStudent} like ?');
+      conditions.add('${Scorre.fieldIdStudent} like ?');
       Args.add('${searchIdStudent}');
     }
     if (searchValueScorre != null) {
-      conditions.add('${Scorre.filedValueScorre} like ?');
+      conditions.add('${Scorre.fieldValueScorre} like ?');
       Args.add('${searchValueScorre}');
     }
 
     Database db = await ConectDatabase().db;
     List dbData = await db.query(Scorre.tableName,
         columns: [
-          Scorre.filedId,
-          Scorre.filedIdStudent,
-          Scorre.filedIdClassAcademy,
-          Scorre.filedIdSubject,
-          Scorre.filedValueScorre
+          Scorre.fieldId,
+          Scorre.fieldIdStudent,
+          Scorre.fieldIdClassAcademy,
+          Scorre.fieldIdSubject,
+          Scorre.fieldIdPhase,
+          Scorre.fieldValueScorre
         ],
         where: (conditions.length > 0) ? conditions.join(" and ") : null,
         whereArgs: (conditions.length > 0) ? Args : null);
@@ -90,13 +96,14 @@ class ScorreHelper {
     Database db = await ConectDatabase().db;
     List dbData = await db.query(Scorre.tableName,
         columns: [
-          Scorre.filedId,
-          Scorre.filedIdStudent,
-          Scorre.filedIdClassAcademy,
-          Scorre.filedIdSubject,
-          Scorre.filedValueScorre
+          Scorre.fieldId,
+          Scorre.fieldIdStudent,
+          Scorre.fieldIdClassAcademy,
+          Scorre.fieldIdSubject,
+          Scorre.fieldIdPhase,
+          Scorre.fieldValueScorre,
         ],
-        where: '${Scorre.filedId} = ?',
+        where: '${Scorre.fieldId} = ?',
         whereArgs: [id]);
 
     if (dbData.isNotEmpty) {

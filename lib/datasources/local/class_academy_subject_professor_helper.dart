@@ -1,5 +1,8 @@
 import 'package:aula_03_pos/datasources/local/conect_database.dart';
+import 'package:aula_03_pos/models/class_academy.dart';
 import 'package:aula_03_pos/models/class_academy_subject_professor.dart';
+import 'package:aula_03_pos/models/professor.dart';
+import 'package:aula_03_pos/models/subject.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:sqflite/utils/utils.dart';
 
@@ -10,10 +13,10 @@ class ClassAcademySubjectProfessorHelper {
   ''';
   static const sqlCreateClassAcademySubjectProfessor = '''
     CREATE TABLE IF NOT EXISTS ${ClassAcademySubjectProfessor.tableName} (
-      ${ClassAcademySubjectProfessor.filedId} INTEGER PRIMARY KEY AUTOINCREMENT,
-      ${ClassAcademySubjectProfessor.filedIdClassAcademy} INTEGER,
-      ${ClassAcademySubjectProfessor.filedIdSubject} INTEGER,
-      ${ClassAcademySubjectProfessor.filedIdProfessor} INTEGER
+      ${ClassAcademySubjectProfessor.fieldId} INTEGER PRIMARY KEY AUTOINCREMENT,
+      ${ClassAcademySubjectProfessor.fieldIdClassAcademy} INTEGER,
+      ${ClassAcademySubjectProfessor.fieldIdSubject} INTEGER,
+      ${ClassAcademySubjectProfessor.fieldIdProfessor} INTEGER
     )
   ''';
 
@@ -21,8 +24,14 @@ class ClassAcademySubjectProfessorHelper {
       ClassAcademySubjectProfessor classAcademySubjectProfessor) async {
     Database db = await ConectDatabase().db;
 
-    await db.insert(ClassAcademySubjectProfessor.tableName,
-        classAcademySubjectProfessor.toMap());
+    await db.insert(ClassAcademySubjectProfessor.tableName, {
+      ClassAcademySubjectProfessor.fieldIdClassAcademy:
+          classAcademySubjectProfessor.idClassAcademy,
+      ClassAcademySubjectProfessor.fieldIdSubject:
+          classAcademySubjectProfessor.idSubject,
+      ClassAcademySubjectProfessor.fieldIdProfessor:
+          classAcademySubjectProfessor.idProfessor,
+    });
     return classAcademySubjectProfessor;
   }
 
@@ -32,7 +41,7 @@ class ClassAcademySubjectProfessorHelper {
 
     return db.update(ClassAcademySubjectProfessor.tableName,
         classAcademySubjectProfessor.toMap(),
-        where: '${ClassAcademySubjectProfessor.filedId} = ?',
+        where: '${ClassAcademySubjectProfessor.fieldId} = ?',
         whereArgs: [classAcademySubjectProfessor.id]);
   }
 
@@ -41,7 +50,7 @@ class ClassAcademySubjectProfessorHelper {
     Database db = await ConectDatabase().db;
 
     return db.delete(ClassAcademySubjectProfessor.tableName,
-        where: '${ClassAcademySubjectProfessor.filedId} = ?',
+        where: '${ClassAcademySubjectProfessor.fieldId} = ?',
         whereArgs: [classAcademySubjectProfessor.id]);
   }
 
@@ -61,35 +70,40 @@ class ClassAcademySubjectProfessorHelper {
     List conditions = [];
     List Args = [];
     if (searchId != null) {
-      conditions.add('${ClassAcademySubjectProfessor.filedId} like ?');
+      conditions.add('${ClassAcademySubjectProfessor.fieldId} like ?');
       Args.add('%${searchId}%');
     }
     if (searchId != null) {
       conditions
-          .add('${ClassAcademySubjectProfessor.filedIdClassAcademy} like ?');
+          .add('${ClassAcademySubjectProfessor.fieldIdClassAcademy} like ?');
       Args.add('%${searchIdClassAcademy}%');
     }
     if (searchId != null) {
-      conditions.add('${ClassAcademySubjectProfessor.filedIdSubject} like ?');
+      conditions.add('${ClassAcademySubjectProfessor.fieldIdSubject} like ?');
       Args.add('%${searchIdSubject}%');
     }
     if (searchId != null) {
-      conditions.add('${ClassAcademySubjectProfessor.filedIdProfessor} like ?');
+      conditions.add('${ClassAcademySubjectProfessor.fieldIdProfessor} like ?');
       Args.add('%${searchIdProfessor}%');
     }
 
     Database db = await ConectDatabase().db;
-    await db.execute(ClassAcademySubjectProfessorHelper
-        .sqlCreateClassAcademySubjectProfessor);
-    List dbData = await db.query(ClassAcademySubjectProfessor.tableName,
-        columns: [
-          ClassAcademySubjectProfessor.filedId,
-          //ClassAcademySubjectProfessor.filedIdClassAcademy,
-          //ClassAcademySubjectProfessor.filedIdSubject,
-          //ClassAcademySubjectProfessor.filedIdProfessor,
-        ],
-        where: (conditions.length > 0) ? conditions.join(" and ") : null,
-        whereArgs: (conditions.length > 0) ? Args : null);
+
+    List dbData = await db.rawQuery('''
+      SELECT  CSP.${ClassAcademySubjectProfessor.fieldId},
+              CSP.${ClassAcademySubjectProfessor.fieldIdClassAcademy},
+              CSP.${ClassAcademySubjectProfessor.fieldIdSubject},
+              CSP.${ClassAcademySubjectProfessor.fieldIdProfessor},
+              C.${ClassAcademy.fieldName} AS ${ClassAcademySubjectProfessor.fieldNameClassAcademy},
+              S.${Subject.fieldName}  AS ${ClassAcademySubjectProfessor.fieldNameSubject},
+              P.${Professor.fieldName} AS   ${ClassAcademySubjectProfessor.fieldNameProfessor}
+      FROM ${ClassAcademySubjectProfessor.tableName}  CSP
+      LEFT JOIN ${ClassAcademy.tableName} C ON (C.${ClassAcademy.fieldId}=CSP.${ClassAcademySubjectProfessor.fieldIdClassAcademy})
+      LEFT JOIN ${Subject.tableName} S ON (S.${Subject.fieldId}=CSP.${ClassAcademySubjectProfessor.fieldIdSubject})
+      LEFT JOIN ${Professor.tableName} P ON (P.${Professor.fieldId}=CSP.${ClassAcademySubjectProfessor.fieldIdProfessor})
+       ${(conditions.length > 0) ? " WHERE  " + conditions.join(" and ") : ""}
+    ''', Args);
+
     return dbData.map((e) => ClassAcademySubjectProfessor.fromMap(e)).toList();
   }
 
@@ -98,12 +112,12 @@ class ClassAcademySubjectProfessorHelper {
     Database db = await ConectDatabase().db;
     List dbData = await db.query(ClassAcademySubjectProfessor.tableName,
         columns: [
-          ClassAcademySubjectProfessor.filedId,
-          ClassAcademySubjectProfessor.filedIdClassAcademy,
-          ClassAcademySubjectProfessor.filedIdSubject,
-          ClassAcademySubjectProfessor.filedIdProfessor,
+          ClassAcademySubjectProfessor.fieldId,
+          ClassAcademySubjectProfessor.fieldIdClassAcademy,
+          ClassAcademySubjectProfessor.fieldIdSubject,
+          ClassAcademySubjectProfessor.fieldIdProfessor,
         ],
-        where: '${ClassAcademySubjectProfessor.filedId} = ?',
+        where: '${ClassAcademySubjectProfessor.fieldId} = ?',
         whereArgs: [id]);
 
     if (dbData.isNotEmpty) {

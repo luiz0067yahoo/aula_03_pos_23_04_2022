@@ -1,7 +1,7 @@
 class Subject {
   static const tableName = 'subject';
-  static const filedId = 'id';
-  static const filedName = 'name';
+  static const fieldId = 'id';
+  static const fieldName = 'name';
   int? id;
   String name;
 
@@ -9,11 +9,11 @@ class Subject {
 
   factory Subject.fromMap(Map map) {
     return Subject(
-        id: int.tryParse(map[Subject.filedId].toString()),
-        name: map[Subject.filedName]);
+        id: int.tryParse(map[Subject.fieldId].toString()),
+        name: map[Subject.fieldName]);
   }
 
   Map<String, dynamic> toMap() {
-    return {Subject.filedId: id, Subject.filedName: name};
+    return {Subject.fieldId: id, Subject.fieldName: name};
   }
 }
