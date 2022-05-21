@@ -7,6 +7,11 @@ class ListReportCardPage extends StatefulWidget {
   int? searchIdClassAcademy;
   int? searchIdSubject;
   int? searchIdPhase;
+  int sumScore = 0;
+  int countPhase = 0;
+  int sumFrequenncy = 0;
+  double avgScore = 0;
+  double avgFrequenncy = 0;
 
   ListReportCardPage(
       {this.searchIdStudent,
@@ -44,7 +49,7 @@ class _ListReportCardPageState extends State<ListReportCardPage> {
   }
 
   Widget _createList(List<ReportCard> listaDados) {
-    return ListView.builder(
+    Widget _resultReportCard = ListView.builder(
         //padding: const EdgeInsets.all(4),
         itemCount: listaDados.length,
         itemBuilder: (context, index) {
@@ -54,6 +59,7 @@ class _ListReportCardPageState extends State<ListReportCardPage> {
             child: _createItemList(listaDados[index], index),
           );
         });
+    return _resultReportCard;
   }
 
   Widget _createItemList(ReportCard reportCard, int i) {
@@ -70,6 +76,7 @@ class _ListReportCardPageState extends State<ListReportCardPage> {
             children: [
               _createHeader(reportCard, i),
               _createPhase(reportCard, i),
+              _createResult(reportCard),
             ],
           ),
         ),
@@ -119,6 +126,13 @@ class _ListReportCardPageState extends State<ListReportCardPage> {
                         style: const TextStyle(fontSize: 28),
                         textAlign: TextAlign.start,
                       )),
+                  SizedBox(height: 10),
+                  SizedBox(
+                    height: 3,
+                    width: double.infinity,
+                    child: const DecoratedBox(
+                        decoration: const BoxDecoration(color: Colors.black54)),
+                  ),
                 ],
               );
 
@@ -129,7 +143,6 @@ class _ListReportCardPageState extends State<ListReportCardPage> {
   }
 
   Widget _createPhase(ReportCard reportCard, int i) {
-    print(widget.searchIdSubject.toString());
     Widget _resultHeader = (widget.searchIdPhase == reportCard.idPhase)
         ? SizedBox.shrink()
         : Column(
@@ -177,5 +190,76 @@ class _ListReportCardPageState extends State<ListReportCardPage> {
     widget.searchIdPhase = reportCard.idPhase;
 
     return _resultHeader;
+  }
+
+  Widget _createResult(ReportCard reportCard) {
+    Widget _resulResult = SizedBox(
+      height: 30,
+      width: double.infinity,
+      child: const DecoratedBox(
+          decoration: const BoxDecoration(color: Colors.black54)),
+    ); //SizedBox.shrink();
+    if ((widget.searchIdClassAcademy == reportCard.idClassAcademy) &&
+        (widget.searchIdStudent == reportCard.idStudent) &&
+        (widget.searchIdSubject == reportCard.idSubject)) {
+      if ((reportCard != null) && (reportCard!.valueScorre != null))
+        widget.sumScore = widget.sumScore + reportCard!.valueScorre!;
+      if ((reportCard != null) && (reportCard!.valueFrequency != null))
+        widget.sumScore = widget.sumScore + reportCard!.valueFrequency!;
+      widget.countPhase++;
+    } else {
+      if ((widget.sumScore != 0) && (widget.countPhase != 0))
+        widget.avgScore = widget.sumScore / widget.countPhase;
+      else
+        widget.avgScore = 0;
+      if ((widget.sumFrequenncy != 0) && (widget.countPhase != 0))
+        widget.avgFrequenncy = widget.sumFrequenncy / widget.countPhase;
+      else
+        widget.avgFrequenncy = 0;
+
+      if ((widget.sumFrequenncy != 0) &&
+          (widget.avgScore != 0) &&
+          (widget.avgFrequenncy != 0)) {
+        _resulResult = Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(height: 10),
+            SizedBox(
+                height: 30,
+                child: Text(
+                  "Média  frequencia: " + widget.avgFrequenncy.toString(),
+                  style: const TextStyle(fontSize: 28),
+                  textAlign: TextAlign.start,
+                )),
+            SizedBox(height: 10),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                SizedBox(
+                    child: Text(
+                  "Média Nota: " + widget.avgScore.toString(),
+                  style: const TextStyle(fontSize: 28),
+                  textAlign: TextAlign.start,
+                )),
+                SizedBox(height: 10),
+                SizedBox(
+                    child: Text(
+                  "Média Frequência: " + widget.avgFrequenncy.toString(),
+                  style: const TextStyle(fontSize: 28),
+                  textAlign: TextAlign.start,
+                )),
+                SizedBox(height: 10),
+              ],
+            )
+          ],
+        );
+
+        widget.sumFrequenncy = 0;
+        widget.avgScore = 0;
+        widget.avgFrequenncy = 0;
+      }
+    }
+    return _resulResult;
   }
 }

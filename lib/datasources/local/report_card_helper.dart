@@ -40,7 +40,7 @@ class ReportCardHelper {
               P.${Phase.fieldName}  as ${ReportCard.fieldNamePhase}
       FROM ${ClassAcademySubjectStudent.tableName}  CASS
       LEFT JOIN ${ClassAcademy.tableName} C ON (CASS.${ClassAcademySubjectStudent.fieldIdClassAcademy}=C.${ClassAcademy.fieldId})
-      LEFT JOIN ${Phase.tableName} S ON (CASS.${ClassAcademySubjectStudent.fieldIdSubject}=S.${Subject.fieldId})
+      LEFT JOIN ${Subject.tableName} S ON (CASS.${ClassAcademySubjectStudent.fieldIdSubject}=S.${Subject.fieldId})
       LEFT JOIN ${Student.tableName} STD ON (CASS.${ClassAcademySubjectStudent.fieldIdStudent}=STD.${Student.fieldId})
      
       LEFT JOIN ${Scorre.tableName} SCR ON (SCR.${Scorre.fieldIdStudent}=STD.${Student.fieldId})
