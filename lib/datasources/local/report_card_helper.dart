@@ -52,6 +52,7 @@ class ReportCardHelper {
       
       ORDER BY
       STD.${Student.fieldName} ASC,
+      C.${ClassAcademy.fieldName} ASC,
       S.${Subject.fieldName} ASC,
       P.${Phase.fieldId} ASC
     ''', Args);
