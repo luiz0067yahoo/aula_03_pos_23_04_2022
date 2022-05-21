@@ -39,11 +39,12 @@ class ReportCardHelper {
               S.${Subject.fieldName}  as ${ReportCard.fieldNameSubject},
               P.${Phase.fieldName}  as ${ReportCard.fieldNamePhase}
       FROM ${ClassAcademySubjectStudent.tableName}  CASS
-      LEFT JOIN ${ClassAcademy.tableName} C ON (CASS.${ClassAcademySubjectStudent.fieldIdClassAcademy}=C.${Student.fieldId})
+      LEFT JOIN ${ClassAcademy.tableName} C ON (CASS.${ClassAcademySubjectStudent.fieldIdClassAcademy}=C.${ClassAcademy.fieldId})
+      LEFT JOIN ${Phase.tableName} S ON (CASS.${ClassAcademySubjectStudent.fieldIdSubject}=S.${Subject.fieldId})
       LEFT JOIN ${Student.tableName} STD ON (CASS.${ClassAcademySubjectStudent.fieldIdStudent}=STD.${Student.fieldId})
+     
       LEFT JOIN ${Scorre.tableName} SCR ON (SCR.${Scorre.fieldIdStudent}=STD.${Student.fieldId})
       LEFT JOIN ${Frequency.tableName} F ON ((F.${Frequency.fieldIdStudent}=STD.${Student.fieldId}) AND (F.${Frequency.fieldIdPhase}=SCR.${Scorre.fieldIdPhase}))
-      LEFT JOIN ${Subject.tableName} S ON ((F.${Frequency.fieldIdSubject}=S.${Subject.fieldId}) AND (P.${Phase.fieldId}=S.${Subject.fieldId}))  
       LEFT JOIN ${Phase.tableName} P ON ((P.${Phase.fieldId}=F.${Frequency.fieldIdPhase}) AND (P.${Phase.fieldId}=SCR.${Scorre.fieldIdPhase}))
       
        ${(conditions.length > 0) ? " WHERE  " + conditions.join(" and ") : ""}
